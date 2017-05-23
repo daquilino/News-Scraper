@@ -1,0 +1,28 @@
+{
+  "name": "scraper-app",
+  "version": "1.0.0",
+  "description": "An app that lets users leave comments on the most popular news scrapped from www.theonion.com.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daquilino/The-Onion-Scrapper.git"
+  },
+  "author": "Douglas Aquilino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daquilino/The-Onion-Scrapper/issues"
+  },
+  "homepage": "https://github.com/daquilino/The-Onion-Scrapper#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cheerio": "^0.22.0",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.10.2",
+    "request": "^2.81.0"
+  }
+}
