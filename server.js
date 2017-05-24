@@ -13,10 +13,6 @@ const EXPHBS = require("express-handlebars");
 var Comment = require("./models/Comment.js");
 var Article = require("./models/Article.js");
 
-// Our scraping tools
-var request = require("request");
-var cheerio = require("cheerio");
-
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
@@ -24,7 +20,7 @@ const PORT = process.env.PORT || 3000;
 // Initialize Express
 const APP = express();
 
-// Use morgan and body parser with our app
+// Use body parser
 
 APP.use(bodyParser.urlencoded({extended: false}));
 
@@ -34,9 +30,9 @@ APP.use(express.static("public"));
 // Set Handlebars.
 APP.engine("handlebars", EXPHBS({ defaultLayout: "main" }));
 APP.set("view engine", "handlebars");
-/*
+
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/week18day3mongoose");
+mongoose.connect("mongodb://localhost/newsscraper");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -48,11 +44,11 @@ db.on("error", function(error) {
 db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
-*/
+
 
 // Routes
 // ======
-//require("./controllers/api-routes.js");
+require("./controllers/api-routes.js")(APP);
 require("./controllers/html-routes.js")(APP);
 
 

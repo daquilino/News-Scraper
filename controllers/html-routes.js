@@ -1,14 +1,24 @@
+const Article = require("../models/Article.js");
 
+module.exports = function(app){
 
-module.exports = function(APP){
+	app.get('/', function(req, res){
 
-	APP.get('/', function(req, res){
+		Article.find({}, function(error, doc) {
+	    // Log any errors
+		    if (error) {
+		      console.log(error);
+		    }
+		    // Or send the doc to the browser as a json object
+		    else {
+			    let hbsObject ={
+						article: doc
+				};
 
-		var hbsObject = {
-      		text: "WELCOME HOME!"
-    	};
-    	
-    	res.render("index", hbsObject);
+				res.render("index", hbsObject);
+	   		}
+	  });
+
 	});
 
 }

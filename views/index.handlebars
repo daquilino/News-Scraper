@@ -1,8 +1,8 @@
 
 
-<h1>{{text}}</h1>
 
-{{!-- 
+
+
 <header class="text-center">
   <h1 class="text-center" id="main-header">The Onion Scrapper</h1>  
 </header>
@@ -24,20 +24,19 @@
           <table class="table table-striped"> <!-- .table-striped alternates table row colors -->
             <thead>
               <tr>
-                  <th>Pizza</th>
-                  <th>Name</th>
-                  <th></th>
+                  <th>Articles</th>
+                 
                         
               </tr>
             </thead>
             <tbody >
-              {{#each story}}
+              {{#each article}}
                 
                 <tr>
-                  <td>{{this.pizza_name}}</td>
-                  
+                  <td>{{this.title}}</td>
+                  <td><a href={{this.link}} target="_blank">LINK</a></td>
                   <td>  
-                    <form action="/customer/{{this.id}}" method="POST">
+                    <form action="/customer/{{this._id}}" method="POST">
                       <input class="name" type="text" name="customer_name" placeholder="name">
                       <button class="btn" type="submit">EAT ME!</button>
                     </form>
@@ -61,4 +60,3 @@
         <p>&copy;Douglas Aquilino | <a href="https://github.com/daquilino/Pizza-Sequelized">GitHub Repo</a></p>
     </div>
 </footer>
- --}}

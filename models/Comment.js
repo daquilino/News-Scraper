@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 // Create the Note schema
-var NoteSchema = new Schema({
+var CommentSchema = new Schema({
   // Just a string
   title: {
     type: String
@@ -19,7 +19,7 @@ var NoteSchema = new Schema({
 // These ids are referred to in the Article model
 
 // Create the Note model with the NoteSchema
-var Note = mongoose.model("Note", NoteSchema);
+var Comment = mongoose.model("Comment", CommentSchema);
 
 // Export the Note model
-module.exports = Note;
+module.exports = Comment;
