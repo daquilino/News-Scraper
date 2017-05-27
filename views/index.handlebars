@@ -1,10 +1,7 @@
 
-
-
-
-
 <header class="text-center">
-  <h1 class="text-center" id="main-header">JavaScript.com News Scrapper</h1>  
+  <h1 class="text-center" id="main-header">JavaScript.com News Scrapper</h1>
+  <button type>Get JS News</button>  
 </header>
 
 <div class="container">
@@ -13,17 +10,48 @@
     
   
     {{#each article}}
-
+     
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href='#{{this._id}}'>{{this.title}}</a>
+            <a href={{this.link}} target="_blank"><h3>{{this.title}}</h3></a>
           </h4>
-           <a href={{this.link}} target="_blank">LINK</a>
+           <a data-toggle="collapse" data-parent="#accordion" href='#{{this._id}}'><button class="btn btn-info">Show Comments</button></a>
         </div>
-
+       
         <div id={{this._id}} class="panel-collapse collapse">
-          <div class="panel-body">{{this._id}}</div>
+          <div class="panel-body">
+            <form action="/api/article/{{this.id}}" method="POST">
+                <input name="title" type="text" placeholder="title">
+                <textarea rows="4" cols="50" name="text" placeholder="comment"></textarea>
+                <button type="submit">Add Comment</button>
+            </form>
+            
+            <div class="well">
+              {{#each this.comments}}                      
+                <div class="well">
+                
+                  <div class="row">                
+                    <div class="col-xs-8">
+                      <h2><i>{{this.title}}</i></h2>
+                      <p>{{this.text}}</p>
+                    </div>
+                    <div class="col-xs-4">
+                      <form action="/api/comment/{{this._id}}" method="POST">
+                        <input type="hidden" name="articleID" value={{../_id}}>
+                        <button class="btn btn-lg">
+                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                      </form>
+                    </div>
+                  </div>  
+               
+              
+                </div>
+              {{/each}}
+            </div>  
+          </div>
+
         </div>
       </div>  
      
