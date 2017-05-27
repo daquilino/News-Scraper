@@ -1,6 +1,7 @@
 const REQUEST = require('request');
 const CHEERIO = require("cheerio");
 const Article = require("../models/Article.js");
+const Comment = require("../models/Comment.js");
 
 
 
@@ -43,7 +44,7 @@ module.exports = function(app){
 	});
 
 	// This will get the articles we scraped from the mongoDB
-	app.get("/api/articles", function(req, res) {
+	app.get("/api/article", function(req, res) {
 	  // Grab every doc in the Articles array
 	  Article.find({}, function(error, doc) {
 	    // Log any errors
@@ -57,54 +58,65 @@ module.exports = function(app){
 	  });
 	});
 
-// 	// Grab an article by it's ObjectId
-// 	app.get("/articles/:id", function(req, res) {
-// 	  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-// 	  Article.findOne({ "_id": req.params.id })
-// 	  // ..and populate all of the notes associated with it
-// 	  .populate("note")
-// 	  // now, execute our query
-// 	  .exec(function(error, doc) {
-// 	    // Log any errors
-// 	    if (error) {
-// 	      console.log(error);
-// 	    }
-// 	    // Otherwise, send the doc to the browser as a json object
-// 	    else {
-// 	      res.json(doc);
-// 	    }
-// 	  });
-// 	});
+	// // Grab an article by it's ObjectId
+	// app.get("api/article/:id", function(req, res) {
+	//   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+	//   Article.findOne({ "_id": req.params.id })
+	//   // ..and populate all of the notes associated with it
+	//   .populate("note")
+	//   // now, execute our query
+	//   .exec(function(error, doc) {
+	//     // Log any errors
+	//     if (error) {
+	//       console.log(error);
+	//     }
+	//     // Otherwise, send the doc to the browser as a json object
+	//     else {
+	//       res.json(doc);
+	//     }
+	//   });
+	// });
 
 
-// 	// Create a new note or replace an existing note
-// 	app.post("/articles/:id", function(req, res) {
-// 	  // Create a new note and pass the req.body to the entry
-// 	  var newNote = new Note(req.body);
+	// Create a new Comment
+	app.post("/api/article/:id", function(req, res) {
+	 	
+	  // Create a new note and pass the req.body to the entry
+	  var newComment = new Comment(req.body);
 
-// 	  // And save the new note the db
-// 	  newNote.save(function(error, doc) {
-// 	    // Log any errors
-// 	    if (error) {
-// 	      console.log(error);
-// 	    }
-// 	    // Otherwise
-// 	    else {
-// 	      // Use the article id to find and update it's note
-// 	      Article.findOneAndUpdate({ "_id": req.params.id }, { "note": doc._id })
-// 	      // Execute the above query
-// 	      .exec(function(err, doc) {
-// 	        // Log any errors
-// 	        if (err) {
-// 	          console.log(err);
-// 	        }
-// 	        else {
-// 	          // Or send the document to the browser
-// 	          res.send(doc);
-// 	        }
-// 	      });
-// 	    }
-// 	  });
-// 	});
+	  // And save the new note the db
+	  newComment.save(function(error, doc) {
+	    // Log any errors
+	    if (error) {
+	      console.log(error);
+	    }
+	    // Otherwise
+	    else {
+	     		
+	      // Use the article id to find and update it's note
+	      Article.findOneAndUpdate({ "_id": req.params.id }, {$push:{ "comments": doc._id }})
 
-}
+	      // Execute the above query
+	      .exec(function(err, doc) {
+	        // Log any errors
+	        if (err) {
+	          console.log(err);
+	        }
+	        else {
+	          // Or send the document to the browser
+	          res.send(doc);
+	        }
+	      });
+	    }
+	  });
+
+	});
+
+	app.post("/api/comment/:id", function(req, res){
+
+		//code here to delete comment from comment and comment from article
+
+
+	});
+
+}//END module.exports
