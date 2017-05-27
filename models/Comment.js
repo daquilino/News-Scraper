@@ -10,8 +10,12 @@ var CommentSchema = new Schema({
     type: String
   },
   // Just a string
-  body: {
+  text: {
     type: String
+  },
+  dateCreated: {
+  	type: Date,
+  	default: Date.now
   }
 });
 
