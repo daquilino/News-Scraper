@@ -7,6 +7,22 @@ const Comment = require("../models/Comment.js");
 
 module.exports = function(app){
 
+	app.get('/', function(req, res){
+		
+		Article.find()
+		.populate("comments")
+		.exec(function(err, docs){
+
+			let hbsObject ={
+				article: docs
+			};
+
+			res.render("index", hbsObject);
+		})
+		
+	});
+
+	//Scrape articles from web and stores them in mongodb
 	app.get("/api/scrape", function(req, res) {
 	  // First, we grab the body of the html with request
 	  REQUEST("https://www.javascript.com/news", function(error, response, html) {
@@ -40,10 +56,10 @@ module.exports = function(app){
 	    });
 	  });
 	  // Tell the browser that we finished scraping the text
-	  res.send("Scrape Complete");
+	  res.redirect(302, '/');
 	});
 
-	// This will get the articles we scraped from the mongoDB
+	// This will get all articles we scraped from the mongoDB
 	app.get("/api/article", function(req, res) {
 	  // Grab every doc in the Articles array
 	  Article.find({}, function(error, doc) {
@@ -58,24 +74,24 @@ module.exports = function(app){
 	  });
 	});
 
-	// // Grab an article by it's ObjectId
-	// app.get("api/article/:id", function(req, res) {
-	//   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-	//   Article.findOne({ "_id": req.params.id })
-	//   // ..and populate all of the notes associated with it
-	//   .populate("note")
-	//   // now, execute our query
-	//   .exec(function(error, doc) {
-	//     // Log any errors
-	//     if (error) {
-	//       console.log(error);
-	//     }
-	//     // Otherwise, send the doc to the browser as a json object
-	//     else {
-	//       res.json(doc);
-	//     }
-	//   });
-	// });
+	// Gets a single article and populates it with it's comments
+	app.get("api/article/:id", function(req, res) {
+	  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+	  Article.findOne({ "_id": req.params.id })
+	  // ..and populate all of the notes associated with it
+	  .populate("comments")
+	  // now, execute our query
+	  .exec(function(error, doc) {
+	    // Log any errors
+	    if (error) {
+	      console.log(error);
+	    }
+	    // Otherwise, send the doc to the browser as a json object
+	    else {
+	      res.json(doc);
+	    }
+	  });
+	});
 
 
 	// Create a new Comment
@@ -91,11 +107,9 @@ module.exports = function(app){
 	      console.log(error);
 	    }
 	    // Otherwise
-	    else {
-	     		
+	    else {     		
 	      // Use the article id to find and update it's note
-	      Article.findOneAndUpdate({ "_id": req.params.id }, {$push:{ "comments": doc._id }})
-
+	      Article.findOneAndUpdate({ "_id": req.params.id }, {$push:{ "comments": doc._id }},  { new: true })
 	      // Execute the above query
 	      .exec(function(err, doc) {
 	        // Log any errors
@@ -112,9 +126,43 @@ module.exports = function(app){
 
 	});
 
-	app.post("/api/comment/:id", function(req, res){
+	
 
-		//code here to delete comment from comment and comment from article
+	// removes a comment from 'Comments' and 'Article' collections.
+	app.post("/api/delete-comment", function(req, res){
+
+		let commentID = req.body.commentID;
+		let	articleID = req.body.articleID;
+		
+		// Comment.remove({"_id": commentID})
+		// .then(function(err, doc){Article.findOneAndRemove({ "_id": articleID }, {$pull:{ "comments": commentID }})})
+		// .then(res.json({complete:true}))
+		// .catch(res.json({complete:false}));
+
+		Comment.remove({"_id": commentID}, function(error, doc) {
+	    // Log any errors
+	    if (error) 
+	    {
+	      console.log(error);
+	    }
+	    // Otherwise
+	    else 
+	    {     		
+	      // Use the article id to find and update it's note
+	      Article.findOneAndUpdate({ "_id": articleID }, {$pull:{ "comments": commentID }},  { new: true })
+	      // Execute the above query
+	      .exec(function(err, doc) {
+	        // Log any errors
+	        if (err) {
+	          console.log(err);
+	        }
+	        else {
+	          // Or send the document to the browser
+	          res.json({complete:true});
+	        }
+	      });
+	    }
+	  });
 
 
 	});

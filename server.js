@@ -48,8 +48,8 @@ db.once("open", function() {
 
 // Routes
 // ======
-require("./controllers/api-routes.js")(APP);
-require("./controllers/html-routes.js")(APP);
+require("./controllers/routes.js")(APP);
+
 
 
 // Listen on port 3000
