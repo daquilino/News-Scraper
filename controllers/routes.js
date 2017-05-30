@@ -52,14 +52,11 @@ module.exports = function(app){
 	          		
 	        	}
 	        	// Or log the doc
-	        	else {
-	        	
+	        	else {	        	
 	          		console.log(doc);
 	        	}
 	      	});
-
-	    });
-	   
+	    });	   
 	  });
 	  // Tell the browser that we finished scraping the text
 	 	  setTimeout(function() {res.redirect("/")}, 1000);
@@ -134,7 +131,6 @@ module.exports = function(app){
 	});
 
 	
-
 	// removes a comment from 'Comments' and 'Article' collections.
 	app.post("/api/delete-comment", function(req, res){
 
