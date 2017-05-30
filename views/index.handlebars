@@ -23,36 +23,8 @@
         </div>
        
         <div id={{this._id}} class="panel-collapse collapse">
-          <div class="panel-body">
-                       
-            <div class="well">
-              {{#each this.comments}}                      
-                <div class="well" id={{this._id}}well>             
-                  <div class="row">                
-                    <div class="col-xs-8">
-                      <h2><i>{{this.title}}</i></h2>
-                      <p>{{this.text}}</p>
-                    </div>
-                    <div class="col-xs-4">
-                      <form class=".comment-well">
-                        <input type="hidden" class="articleID" value={{../_id}}>
-                        <input type="hidden" class="commentID" value={{this._id}}>
-                        <button type="submit" class="btn btn-lg delete-button">
-                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                      </form>
-                    </div>
-                  </div>  
-                </div>
-              {{/each}}
-              <div>
-                <form action="/api/article/{{this.id}}" method="POST">
-                  <input name="title" type="text" placeholder="title">
-                  <textarea rows="4" cols="50" name="text" placeholder="comment"></textarea>
-                  <button type="submit">Add Comment</button>
-                </form>
-              </div>  
-            </div>  
+          <div class="panel-body">                      
+            {{> comments}}
           </div>
 
         </div>
