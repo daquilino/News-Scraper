@@ -26,7 +26,7 @@ $(document).ready(function(){
      	
      		if(data.complete)
      		{
-     			refreshWell(articleID);	
+     			removeCommentFromWell(commentID);	
      		}
      		console.log("data:", data);
      
@@ -34,42 +34,16 @@ $(document).ready(function(){
 	
 	});
 
-	$(document).on("click", "#scrape", function(){
 
-		$.ajax({
-			method: "GET",
-			url: '/api/scrape'
-		})
-
-	});
 
 });
 
 
 
-//need function that refreshes div well with comments.
-
-
-
-
-function refreshWell (articleID)
+function removeCommentFromWell (commentID)
 {
-	//get comments from article
-	$("#" + articleID + "well").empty();
-	// re populate well with html
-
-
+	$("#" + commentID + "well").remove();
+	
 }
 
 
-function addComment(articleID)
-{
-	/*
-	1.) get values from form
-	2.) add to dbs
-	3.) refresh comment well
-	4.) clear form fields
-	*/
-
-
-}

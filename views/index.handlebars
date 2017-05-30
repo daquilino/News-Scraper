@@ -2,8 +2,9 @@
 <header class="text-center">
   <h1 class="text-center" id="main-header">JavaScript.com News Scrapper</h1>
  
-  <a href="/api/scrape"><button>Get JS News</button></a>
-  
+  <form action="/api/scrape" method="GET">
+  <button type="submit">Get JS News</button></a>
+  </form>
 </header>
 
 <div class="container">
@@ -26,7 +27,7 @@
                        
             <div class="well">
               {{#each this.comments}}                      
-                <div class="well" id={{../_id}}well>             
+                <div class="well" id={{this._id}}well>             
                   <div class="row">                
                     <div class="col-xs-8">
                       <h2><i>{{this.title}}</i></h2>
@@ -66,6 +67,6 @@
 
 <footer class="footer">
     <div class="container">
-        <p>&copy;Douglas Aquilino | <a href="https://github.com/daquilino/Pizza-Sequelized">GitHub Repo</a></p>
+        <p>&copy;Douglas Aquilino | <a href="https://github.com/daquilino/News-Scraper">GitHub Repo</a></p>
     </div>
 </footer>

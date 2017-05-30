@@ -16,7 +16,7 @@ module.exports = function(app){
 			let hbsObject ={
 				article: docs
 			};
-
+			console.log("\n\nXXXXXXXXXXXXXXXX\n", hbsObject, "\n\n");
 			res.render("index", hbsObject);
 		})
 		
@@ -56,8 +56,9 @@ module.exports = function(app){
 	    });
 	  });
 	  // Tell the browser that we finished scraping the text
-	  res.redirect(302, '/');
+	 	 res.redirect("/");
 	});
+
 
 	// This will get all articles we scraped from the mongoDB
 	app.get("/api/article", function(req, res) {
@@ -118,7 +119,7 @@ module.exports = function(app){
 	        }
 	        else {
 	          // Or send the document to the browser
-	          res.send(doc);
+	          res.redirect('/');
 	        }
 	      });
 	    }
@@ -134,11 +135,6 @@ module.exports = function(app){
 		let commentID = req.body.commentID;
 		let	articleID = req.body.articleID;
 		
-		// Comment.remove({"_id": commentID})
-		// .then(function(err, doc){Article.findOneAndRemove({ "_id": articleID }, {$pull:{ "comments": commentID }})})
-		// .then(res.json({complete:true}))
-		// .catch(res.json({complete:false}));
-
 		Comment.remove({"_id": commentID}, function(error, doc) {
 	    // Log any errors
 	    if (error) 
