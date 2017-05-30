@@ -16,9 +16,12 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
-  dateScraped: {
+  date: {
     type: Date,
     default: Date.now
+  },
+   author: {
+    type: String
   },
   // This only saves one note's ObjectId, ref refers to the Note model
   comments: [ {

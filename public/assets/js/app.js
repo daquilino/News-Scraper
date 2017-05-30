@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
 
-
 	$(document).on("click", ".delete-button", function(element){
 
 		element.preventDefault();
@@ -34,10 +33,7 @@ $(document).ready(function(){
 	
 	});
 
-
-
 });
-
 
 
 function removeCommentFromWell (commentID)

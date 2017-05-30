@@ -1,9 +1,12 @@
 
 <header class="text-center">
-  <h1 class="text-center" id="main-header">JavaScript.com News Scrapper</h1>
+  <span id="main-header">
+    <img src="assets/images/fcc-logo.png" alt="freecodecamp" id="fcc-img">
+    <h1 id="scraper">Scraper</h1>
+  </span>
  
-  <form action="/api/scrape" method="GET">
-  <button type="submit">Get JS News</button></a>
+  <form action="/api/scrape" method="GET" id="scrape-form">
+    <button type="submit" class="btn btn-lg" id="scrape-button"><img id="scraper-button-img" src="assets/images/cursor.png" alt="scraper">Update Articles</button></a>
   </form>
 </header>
 
@@ -11,11 +14,10 @@
   
   <div class="panel-group" id="accordion">
     
-  
     {{#each article}}
      
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading article-panel">
           <h4 class="panel-title">
             <a href={{this.link}} target="_blank"><h3>{{this.title}}</h3></a>
           </h4>

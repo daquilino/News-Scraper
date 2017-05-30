@@ -4,7 +4,6 @@ const Article = require("../models/Article.js");
 const Comment = require("../models/Comment.js");
 
 
-
 module.exports = function(app){
 
 	app.get('/', function(req, res){
@@ -16,7 +15,7 @@ module.exports = function(app){
 			let hbsObject ={
 				article: docs
 			};
-			console.log("\n\nXXXXXXXXXXXXXXXX\n", hbsObject, "\n\n");
+
 			res.render("index", hbsObject);
 		})
 		
@@ -24,19 +23,22 @@ module.exports = function(app){
 
 	//Scrape articles from web and stores them in mongodb
 	app.get("/api/scrape", function(req, res) {
+	
 	  // First, we grab the body of the html with request
-	  REQUEST("https://www.javascript.com/news", function(error, response, html) {
+	  REQUEST("https://medium.freecodecamp.com/tagged/web-development", function(error, response, html) {
 	    // Then, we load that into cheerio and save it to $ for a shorthand selector
 	    var $ = CHEERIO.load(html);
 	    // Now, we grab every h2 within an article tag, and do the following:
-	    $('ul.js-loadFeed-list li').each(function(i, element){
+	    $('div.js-streamItem').each(function(i, element){
 
 	    	//Save an empty result object
 	    	let result ={};
 
 	    	// Add the title and href of every link, and save them as properties of the result object
-      		result.title = $(element).find('a.sb-c-text').text().replace(/\n/g, "").trim();
-     	 	result.link = $(element).find('div.sb-list-item:nth-child(3) a').attr('href');
+      		result.title = $(element).find('h3.graf--title').text().replace(/\n/g, "").trim();
+      		result.link = $(element).find('div.postArticle-readMore a').attr('href');
+      		result.date = Date($(element).find('time').attr("datetime"));
+      		result.author =$(element).find('div.postMetaInline-authorLockup').children('a:first-child').text();
     
 	      	// Using our Article model, create a new entry
 	      	// This effectively passes the result object to the entry (and the title and link)
@@ -47,16 +49,20 @@ module.exports = function(app){
 	        	// Log any errors
 	        	if (err) {
 	          		console.log(err);
+	          		
 	        	}
 	        	// Or log the doc
 	        	else {
-	          	console.log(doc);
+	        	
+	          		console.log(doc);
 	        	}
 	      	});
+
 	    });
+	   
 	  });
 	  // Tell the browser that we finished scraping the text
-	 	 res.redirect("/");
+	 	  setTimeout(function() {res.redirect("/")}, 1000);
 	});
 
 
