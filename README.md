@@ -1,8 +1,10 @@
 # News-Scrapper (freecodecamp scraper)
-An app that lets users leave comments on the most popular news scrapped from www.javascript.com/news
 
+An app that lets users leave comments on the latest articles on Web Development scraped from the freecodecamp's medium.com page.
 
+Whenever a user visits [freecodecamp scraper](https://blooming-springs-39642.herokuapp.com/), the app will present the user with a list of any previously scraped articles stored in the database along with any associated comments users may have left.  The use can click on 'Update Articles' button which will use Cheerio to grab the latest articles and if they don't already exist, save them to the MongoDB database using Mongoose ODM.
 
+All users can leave comments on any of the stories collected. They are also able to delete whatever comments they want removed. All stored comments are visible to every user.
 
 
 ## Built With
