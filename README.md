@@ -1,6 +1,7 @@
 # News-Scrapper (freecodecamp scraper)
 
-[![screen shot](https://github.com/daquilino/News-Scraper/blob/master/public/assets/images/screen-shot.png)](https://blooming-springs-39642.herokuapp.com/)
+<a href="https://blooming-springs-39642.herokuapp.com/" target="_blank"><img src="https://github.com/daquilino/News-Scraper/blob/master/public/assets/images/screen-shot.png" alt="screen shot">
+</a>
 
 An app that lets users leave comments on the latest articles on Web Development scraped from the freecodecamp's medium.com page.
 
