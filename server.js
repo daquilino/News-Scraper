@@ -1,7 +1,3 @@
-/*
-
-
-*/
 
 // Dependencies
 var express = require("express");
@@ -17,11 +13,11 @@ var Article = require("./models/Article.js");
 mongoose.Promise = Promise;
 
 const PORT = process.env.PORT || 3000;
+
 // Initialize Express
 const APP = express();
 
 // Use body parser
-
 APP.use(bodyParser.urlencoded({extended: false}));
 
 // Make public a static dir
@@ -30,6 +26,7 @@ APP.use(express.static("public"));
 // Set Handlebars.
 APP.engine("handlebars", EXPHBS({ defaultLayout: "main" }));
 APP.set("view engine", "handlebars");
+
 
 // Database configuration with mongoose
 mongoose.connect("mongodb://localhost/newsscraper");

@@ -1,5 +1,6 @@
 const REQUEST = require('request');
 const CHEERIO = require("cheerio");
+const MOMENT = require("moment");
 const Article = require("../models/Article.js");
 const Comment = require("../models/Comment.js");
 
@@ -13,7 +14,12 @@ module.exports = function(app){
 		.exec(function(err, docs){
 
 			let hbsObject ={
-				article: docs
+				article: docs,
+				helpers: {
+            		formatDate: function (date) { 
+            			return MOMENT(date).format("MM/DD/YYYY").toString(); 
+            		}
+        		}
 			};
 
 			res.render("index", hbsObject);
@@ -37,9 +43,9 @@ module.exports = function(app){
 	    	// Add the title and href of every link, and save them as properties of the result object
       		result.title = $(element).find('h3.graf--title').text().replace(/\n/g, "").trim();
       		result.link = $(element).find('div.postArticle-readMore a').attr('href');
-      		result.date = Date($(element).find('time').attr("datetime"));
+      		result.date = new Date($(element).find('time').attr("datetime"));
       		result.author =$(element).find('div.postMetaInline-authorLockup').children('a:first-child').text();
-    
+    	
 	      	// Using our Article model, create a new entry
 	      	// This effectively passes the result object to the entry (and the title and link)
 	      	let entry = new Article(result);
@@ -59,7 +65,7 @@ module.exports = function(app){
 	    });	   
 	  });
 	  // Tell the browser that we finished scraping the text
-	 	  setTimeout(function() {res.redirect("/")}, 1000);
+	 	  setTimeout(function() {res.redirect("/")}, 2000);
 	});
 
 
@@ -127,7 +133,6 @@ module.exports = function(app){
 	      });
 	    }
 	  });
-
 	});
 
 	
@@ -161,8 +166,6 @@ module.exports = function(app){
 	      });
 	    }
 	  });
-
-
 	});
 
 }//END module.exports

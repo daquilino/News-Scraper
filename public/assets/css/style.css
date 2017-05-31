@@ -20,13 +20,12 @@ body {
 	height: 50px;
 }
 
-#scrape-form{
+#scrape-div{
 	margin-bottom: 20px;
 }
 
 div.panel-heading.article-panel {
 	background: rgba(138,191,124, .5);
-
 }
 
 #scraper {
@@ -42,4 +41,12 @@ div.panel-heading.article-panel {
 	color: black;
 }
 
+header {
+	margin-bottom: 50px;
+}
+
+.btn-lg{
+	background: rgb(138,191,124);
+	color: black;
+}
 
