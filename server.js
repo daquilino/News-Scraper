@@ -50,12 +50,9 @@ db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
-
 // Routes
 // ======
 require("./controllers/routes.js")(APP);
-
-
 
 // Listen on port 3000
 APP.listen(PORT, function() {
