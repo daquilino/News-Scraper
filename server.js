@@ -1,7 +1,6 @@
 
 // Dependencies
 var express = require("express");
-var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 const EXPHBS = require("express-handlebars");
 
@@ -18,7 +17,8 @@ const PORT = process.env.PORT || 3000;
 const APP = express();
 
 // Use body parser
-APP.use(bodyParser.urlencoded({extended: false}));
+APP.use(express.urlencoded({extended: false}));
+APP.use(express.json());
 
 // Make public a static dir
 APP.use(express.static("public"));
