@@ -18,7 +18,6 @@ All users can leave comments on any of the stories collected. They are also able
 ###### NPM Packages
 
 * [express](https://www.npmjs.com/package/express) - Node.js web application framework that provides a robust set of features for web and mobile applications.
-* [body-parser]() - Node.js body parsing middleware.
 * [mongoose](https://www.npmjs.com/package/mongoose) - A MongoDB object modeling tool.
 * [express-handlebars](https://www.npmjs.com/package/express-handlebars) - A Handlebars view engine for Express.
 * [request](https://www.npmjs.com/package/request)	- JS library used to make http calls.
