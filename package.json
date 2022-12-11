@@ -19,7 +19,7 @@
   "homepage": "https://github.com/daquilino/The-Onion-Scrapper#readme",
   "dependencies": {
     "cheerio": "^0.22.0",
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "express-handlebars": "^3.0.0",
     "moment": "^2.18.1",
     "mongoose": "^5.7.7",
